@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 
 function Homepage() {
     const [recipes, setRecipes] = useState([]);
@@ -33,6 +34,7 @@ function Homepage() {
 
     return (
         <div className="App">
+            <Navbar />
             <h1>Hello, user craving something?</h1>
             <div>
                 <h2>Random Product:</h2>

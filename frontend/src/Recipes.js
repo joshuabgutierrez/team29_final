@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from './Navbar';
 
 function Recipes() {
     const [recipes, setRecipes] = useState([]);
@@ -23,6 +24,7 @@ function Recipes() {
 
     return (
         <div className="App">
+            <Navbar />
             <div>
                 <div className="row">
                 <div className="searchBar my-2 d-flex justify-content-center">
