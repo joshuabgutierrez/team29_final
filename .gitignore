@@ -1,0 +1,26 @@
+# Node modules - Do not track the node_modules directory in version control.
+/frontend/node_modules/
+/backend/node_modules/
+
+# Environment files - Avoid tracking .env files to keep sensitive information secure.
+/backend/.env
+
+# Logs - Ignore all log files that might be generated.
+*.log
+
+# Operating System generated files - Ignore files like DS_Store (macOS).
+.DS_Store
+
+# Editor directories and files - Ignore files created by various text editors.
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build outputs - Depending on your build tools, ignore common build directories.
+/frontend/build/
+/backend/dist/
+
+# Temporary files - Ignore temporary files that might be created by the operating system or editors.
+*.tmp
+*.temp
