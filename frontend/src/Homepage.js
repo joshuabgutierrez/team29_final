@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import { useNavigate, Link } from "react-router-dom";
 import Cookies from 'js-cookie';
-import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function Homepage() {
     const [recipes, setRecipes] = useState([]);
@@ -18,15 +17,15 @@ function Homepage() {
             .catch(error => console.error('Error fetching data:', error));
         
         const token = Cookies.get('token');
-        const usernameResponse = Cookies.get('username');
         console.log("Homepage", token);
 
-        if (token) {
-            console.log(jwtDecode(token));
-            setUsername(usernameResponse);
-        }
-        else {
+        if (!token) {
             navigate('/login'); 
+        } else {
+            const storedUsername = localStorage.getItem('username');
+            if (storedUsername) {
+                setUsername(storedUsername);
+            }
         }
     }, []);
 

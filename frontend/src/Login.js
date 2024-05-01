@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
-function Login() {
+function Login({ setUsername }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -25,8 +25,10 @@ function Login() {
               const { username, email, token } = responseData;
 
               Cookies.set("token", token);
-              Cookies.set("username", username);
-              Cookies.set("email", email);
+              localStorage.setItem('username', username);
+              localStorage.setItem('email', email);
+              //Cookies.set("username", username);
+              //Cookies.set("email", email);
 
               console.log("Login", token, username, email);
               navigate('/homepage');
