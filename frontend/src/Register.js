@@ -4,18 +4,41 @@ import { useNavigate, Link } from "react-router-dom";
 function Register() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    //const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
     
-    const handleRegisterSubmit = (e) => {
-        e.preventDefault();
-        if (password !== confirmPassword) {
+    const handleRegisterSubmit = async (e) => {
+      e.preventDefault();
+      
+      // Check if passwords match
+      if (password !== confirmPassword) {
           alert("Passwords don't match");
           return;
-        }
-        navigate('/homepage');
+      }
+      
+      try {
+          const response = await fetch('http://localhost:5000/api/users/register', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({username, email, password }),
+          });
+
+          if (response.ok) {
+              // Registration successful, redirect to homepage
+              navigate('/login');
+          } else {
+              // Registration failed, show error message
+              const errorData = await response.json();
+              alert(errorData.message || 'Registration failed');
+          }
+      } catch (error) {
+          console.error('Error during registration:', error);
+          alert('An error occurred while registering. Please try again later.');
+      }
     };
 
     return (
@@ -38,15 +61,6 @@ function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-              />
-            </label>
-            <br />
-            <label>
-              Phone Number:
-              <input
-                type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </label>
             <br />
