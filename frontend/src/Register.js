@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
     const [username, setUsername] = useState('');
@@ -85,6 +85,7 @@ function Register() {
             </label>
             <br />
             <button type="submit" onClick={handleRegisterSubmit}>Register</button>
+            <Link to="/login">Have an account? Login!.</Link>
           <br />
         </div>
       );
