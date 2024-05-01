@@ -2,14 +2,36 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleLoginSubmit = (e) => {
-        e.preventDefault();
-        navigate('/homepage');
-    };
+    const handleLoginSubmit = async (e) => {
+      e.preventDefault();
+      
+      try {
+          const response = await fetch('http://localhost:5000/api/users/login', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ email, password }), // Use email instead of username
+          });
+  
+          if (response.ok) {
+              // Login successful, redirect to homepage
+              navigate('/homepage');
+          } else {
+              // Login failed, show error message
+              const errorData = await response.json();
+              alert(errorData.message || 'Login failed');
+          }
+      } catch (error) {
+          console.error('Error during login:', error);
+          alert('An error occurred while logging in. Please try again later.');
+      }
+  };
+  
 
     return (
         <div className="App">
@@ -18,8 +40,8 @@ function Login() {
               Username:
               <input
                 type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </label>
