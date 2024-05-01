@@ -1,16 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import { useNavigate, Link } from "react-router-dom";
+import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
 
 function Homepage() {
     const [recipes, setRecipes] = useState([]);
     const [randomRecipe, setRandomRecipe] = useState(null);
     const [currentIndex, setCurrentIndex] = useState(null);
+    const [username, setUsername] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
             .then(response => response.json())
             .then(data => setRecipes(data))
             .catch(error => console.error('Error fetching data:', error));
+        
+        const token = Cookies.get('token');
+        const usernameResponse = Cookies.get('username');
+        console.log("Homepage", token);
+
+        if (token) {
+            console.log(jwtDecode(token));
+            setUsername(usernameResponse);
+        }
+        else {
+            navigate('/login'); 
+        }
     }, []);
 
     useEffect(() => {
@@ -35,7 +52,7 @@ function Homepage() {
     return (
         <div className="App">
             <Navbar />
-            <h1>Hello, user craving something?</h1>
+            <h1>Hello, {username} craving something?</h1>
             <div>
                 <h2>Random Product:</h2>
                 {randomRecipe && (
