@@ -48,6 +48,11 @@ function Homepage() {
         setRandomRecipe(recipes[prevIndex]);
     };
 
+    const handleCreateRecipe = (e) => {
+        e.preventDefault();
+        navigate('/createrecipe');
+    };
+
     return (
         <div className="App">
             <Navbar />
@@ -71,6 +76,7 @@ function Homepage() {
                 )}
                 <button onClick={handlePrevClick}>←</button>
                 <button onClick={handleNextClick}>→</button>
+                <button onClick={handleCreateRecipe}>Create Recipe</button>
             </div>
         </div>
     );
