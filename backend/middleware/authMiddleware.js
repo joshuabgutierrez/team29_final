@@ -20,6 +20,12 @@ exports.protect = async (req, res, next) => {
 
         req.user = await User.findById(decoded.userId);
 
+        if (!req.user) {
+            return res.status(404).json({
+                message: "Account does not exist"
+            })
+        }
+
         next();
     } catch (error) {
         res.status(401).json({
