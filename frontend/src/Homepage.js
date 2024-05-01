@@ -22,6 +22,7 @@ function Homepage() {
         console.log("Homepage", token);
 
         if (token) {
+            console.log(jwtDecode(token));
             setUsername(usernameResponse);
         }
         else {
