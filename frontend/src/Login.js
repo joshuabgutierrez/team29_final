@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    
     const handleLoginSubmit = async (e) => {
       e.preventDefault();
       
@@ -19,8 +20,17 @@ function Login() {
           });
   
           if (response.ok) {
-              // Login successful, redirect to homepage
+              // Login successful
+              const responseData = await response.json();
+              const { username, email, token } = responseData;
+
+              Cookies.set("token", token);
+              Cookies.set("username", username);
+              Cookies.set("email", email);
+
+              console.log("Login", token, username, email);
               navigate('/homepage');
+              
           } else {
               // Login failed, show error message
               const errorData = await response.json();
@@ -37,7 +47,7 @@ function Login() {
         <div className="App">
           <h2>LOGIN</h2>
           <label>
-              Username:
+              Email:
               <input
                 type="text"
                 value={email}
