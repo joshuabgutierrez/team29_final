@@ -5,6 +5,8 @@ import { jwtDecode } from "jwt-decode";
 
 function ViewRecipes() {
     const [recipeId, setRecipeId] = useState('');
+
+function ViewRecipes() {
     const [recipes, setRecipes] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const token = Cookies.get('token');
@@ -48,6 +50,31 @@ function ViewRecipes() {
             console.error('ERROR:', error);
         }
     };
+  
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/recipes/all', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch recipes');
+                }
+
+                const data = await response.json();
+                console.log(data);
+                setRecipes(data.recipes || []);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchRecipes();
+    }, [token]); // Include token as a dependency
 
     const handleSearchChange = (e) => {
         const inputValue = e.target.value.toLowerCase();
@@ -89,6 +116,7 @@ function ViewRecipes() {
                                     <p className="card-text">{recipe.instructions}</p>
                                     <p className="card-text">{recipe.category}</p>
                                     <button onClick={() => handleDelete(recipe._id)}>Delete</button>
+
                                 </div>
                             </div>
                         </div>

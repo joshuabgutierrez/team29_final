@@ -71,6 +71,12 @@ function Homepage() {
         navigate('/createrecipe');
     };
 
+    // This is for your OWN recipes.
+    const handleViewRecipes = (e) => {
+        e.preventDefault();
+        navigate('/viewrecipes');
+    };
+
     return (
         <div className="App">
             <Navbar />
@@ -96,6 +102,7 @@ function Homepage() {
                 <button onClick={handlePrevClick}>←</button>
                 <button onClick={handleNextClick}>→</button>
                 <button onClick={handleCreateRecipe}>Create Recipe</button>
+                <button onClick={handleViewRecipes}>View Your Recipes</button>
             </div>
         </div>
     );
