@@ -1,12 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Cookies from 'js-cookie';
+import { jwtDecode } from "jwt-decode";
+
+function ViewRecipes() {
+    const [recipeId, setRecipeId] = useState('');
 
 function ViewRecipes() {
     const [recipes, setRecipes] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const token = Cookies.get('token');
 
+    const fetchRecipes = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/recipes/all', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch recipes');
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setRecipes(data.recipes || []);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchRecipes();
+    }, [token]); // Include token as a dependency
+
+    const handleDelete = async (recipeId) => {
+        try {
+            await fetch(`http://localhost:5000/api/recipes/delete/${recipeId}`, {
+                method: 'DELETE',
+                headers: { 'content-type': 'application/json', 'authorization': `Bearer ${token}` },
+                body: JSON.stringify({ "_id": recipeId })
+            });
+            alert("Recipe deleted!");
+            fetchRecipes();
+        } catch (error) {
+            alert("An error has occurred.");
+            console.error('ERROR:', error);
+        }
+    };
+  
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
@@ -70,6 +114,9 @@ function ViewRecipes() {
                                     <h5 className="card-title">{recipe.title}</h5>
                                     <p className="card-text">{recipe.ingredients}</p>
                                     <p className="card-text">{recipe.instructions}</p>
+                                    <p className="card-text">{recipe.category}</p>
+                                    <button onClick={() => handleDelete(recipe._id)}>Delete</button>
+
                                 </div>
                             </div>
                         </div>
