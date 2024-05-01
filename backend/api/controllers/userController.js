@@ -1,6 +1,8 @@
 const User = require("../models/User");
+const Recipe = require("../models/Recipe");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 exports.registerUser = async (req, res) => {
     const {username, email, password} = req.body;
@@ -135,9 +137,15 @@ exports.deleteUser = async (req, res) => {
     const {userId} = req.params;
 
     try {
-        const user = await User.findById(userId);
+        const session = await mongoose.startSession();
+        session.startTransaction();
+
+        const user = await User.findByIdAndDelete(userId).session(session);
 
         if (!user) {
+            await session.abortTransaction();
+            session.endSession();
+
             return res.status(404).json({
                 message: "User not found"
             });
@@ -149,11 +157,20 @@ exports.deleteUser = async (req, res) => {
             });
         }
 
-        await user.deleteOne();
+        await Recipe.deleteMany({
+            createdBy: userId
+        }).session(session);
+
+        await session.commitTransaction();
+        session.endSession();
+
         res.status(200).json({
-            message: "User deleted successfully"
+            message: "Account deleted successfully"
         });
     } catch (error) {
+        await session.abortTransaction();
+        session.endSession();
+        
         console.error("Delete user error: ", error);
         res.status(500).json({
             message: "Internal Server Error"
