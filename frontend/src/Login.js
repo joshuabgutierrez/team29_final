@@ -45,34 +45,47 @@ function Login({ setUsername }) {
   };
   
 
-    return (
-        <div className="App">
-          <h2>LOGIN</h2>
-          <label>
-              Email:
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-          <label>
-              Password:
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <button type="submit" onClick={handleLoginSubmit}>Login</button>
-          <br />
-          <Link to="/register">Don't have an account? Register here.</Link>
+  return (
+    <div className="container">
+        <div className="row justify-content-center mt-5">
+            <div className="col-md-6">
+                <div className="card">
+                    <div className="card-body">
+                        <h2 className="text-center mb-4">Find Your Recipes!</h2>
+                        <form onSubmit={handleLoginSubmit}>
+                            <div className="form-group">
+                                <label>Email:</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password:</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="text-center mt-3">
+                              <button type="submit" className="btn btn-success btn-block">Login</button>
+                            </div>
+                        </form>
+                        <div className="text-center mt-3">
+                            <Link to="/register">Don't have an account? Register here.</Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      );
+    </div>
+);
 }
 
 export default Login;
