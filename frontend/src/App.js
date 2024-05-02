@@ -6,6 +6,7 @@ import Register from './Register';
 import Account from './Account';
 import UpdateAccount from './UpdateAccount';
 import Login from './Login';
+import Landing from './components/Landing';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -28,6 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/landing" element={<Landing />} />
         <Route path="/" element={<Login setUsername={setUsername}/>} />
         <Route path="/homepage" element={<Homepage  />} />
         <Route path="/recipes" element={<Recipes />} />

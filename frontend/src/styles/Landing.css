@@ -1,0 +1,22 @@
+.my-background {
+    background-image: url('https://easymeals.qodeinteractive.com/wp-content/uploads/2020/06/h4-img-24.jpg'); /* Replace with your actual image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 100%;
+}
+
+.landing-container {
+    min-height: 100vh;
+}
+
+.text-wrapper {
+    padding: 40px;
+    max-width: 80%;
+}
+
+@media (max-width: 768px) {
+    .text-wrapper {
+        max-width: 40%;
+    }
+}
