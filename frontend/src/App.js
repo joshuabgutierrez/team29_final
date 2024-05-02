@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Homepage from './Homepage';
 import Recipes from './Recipes';
 import CreateRecipe from './CreateRecipe';
+import Updates from './Updates';
 import ViewRecipes from './ViewRecipes';
 import Register from './Register';
 import Account from './Account';
@@ -35,6 +36,8 @@ function App() {
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/createrecipe" element={<CreateRecipe />} />
         <Route path="/viewrecipes" element={<ViewRecipes />} />
+        <Route path="/createrecipe" element={<CreateRecipe />} />
+        <Route path="/updates/:recipeId" element={<Updates />} />
         <Route path="/account" element={<Account username={username} email={email} />} />
         <Route path="/updateaccount" element={<UpdateAccount />} />
         <Route path="/login" element={<Login setUsername={setUsername}/>} />
