@@ -99,7 +99,7 @@ exports.loginUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     const {userId} = req.params;
-    const {username, email, bio} = req.body;
+    const {username, email, bio, profilePicture} = req.body;
 
     try {
         const user = await User.findById(userId);
@@ -118,6 +118,9 @@ exports.updateUser = async (req, res) => {
         }
         if (bio) {
             user.bio = bio;
+        }
+        if(profilePicture) {
+            user.profilePicture = profilePicture
         }
 
         const updatedUser = await user.save();
