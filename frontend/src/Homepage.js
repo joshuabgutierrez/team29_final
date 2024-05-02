@@ -9,16 +9,34 @@ function Homepage() {
     const [currentIndex, setCurrentIndex] = useState(null);
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
+    const token = Cookies.get('token');
 
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
-            .then(response => response.json())
-            .then(data => setRecipes(data))
-            .catch(error => console.error('Error fetching data:', error));
-        
-        const token = Cookies.get('token');
-        console.log("Homepage", token);
+        const fetchRecipes = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/recipes/all', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
 
+                if (!response.ok) {
+                    throw new Error('Failed to fetch recipes');
+                }
+
+                const data = await response.json();
+                console.log(data);
+                setRecipes(data.recipes || []);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchRecipes();
+    }, [token]); // Include token as a dependency
+
+    useEffect(() => {
         if (!token) {
             navigate('/login'); 
         } else {
@@ -48,6 +66,17 @@ function Homepage() {
         setRandomRecipe(recipes[prevIndex]);
     };
 
+    const handleCreateRecipe = (e) => {
+        e.preventDefault();
+        navigate('/createrecipe');
+    };
+
+    // This is for your OWN recipes.
+    const handleViewRecipes = (e) => {
+        e.preventDefault();
+        navigate('/viewrecipes');
+    };
+
     return (
         <div className="App">
             <Navbar />
@@ -64,13 +93,16 @@ function Homepage() {
                         />
                         <div className="card-body">
                             <h5 className="card-title">{randomRecipe.title}</h5>
-                            <p className="card-text">{randomRecipe.description}</p>
-                            <p className="card-text">${randomRecipe.price}</p>
+                            <p className="card-text">{randomRecipe.ingredients}</p>
+                            <p className="card-text">{randomRecipe.instructions}</p>
+                            <p className="card-text">{randomRecipe.category}</p>
                         </div>
                     </div>
                 )}
                 <button onClick={handlePrevClick}>←</button>
                 <button onClick={handleNextClick}>→</button>
+                <button onClick={handleCreateRecipe}>Create Recipe</button>
+                <button onClick={handleViewRecipes}>View Your Recipes</button>
             </div>
         </div>
     );

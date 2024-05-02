@@ -38,6 +38,8 @@ function UpdateAccount() {
             });
 
             alert("Your information has been updated.");
+            localStorage.setItem('username', newUsername);
+            localStorage.setItem('username', newEmail);
             navigate('/account'); 
         } catch (error) {
             console.error('ERROR:', error);

@@ -85,6 +85,7 @@ function Register() {
             </label>
             <br />
             <button type="submit" onClick={handleRegisterSubmit}>Register</button>
+            <Link to="/login">Have an account? Login!.</Link>
           <br />
         </div>
       );

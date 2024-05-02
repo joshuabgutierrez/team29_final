@@ -32,7 +32,7 @@ function Recipes() {
             <input
               type="text"
               className="form-control"
-              placeholder="Search for any seafood recipes"
+              placeholder="Search for any recipes"
               onChange={handleSearchChange}
               value={searchInput} />
           </div>
