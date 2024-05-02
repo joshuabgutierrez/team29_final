@@ -1,11 +1,17 @@
 const Recipe = require("../models/Recipe");
+const User = require("../models/User");
 
 exports.getAllRecipes = async (req, res) => {
     try {
-        console.log(req.user);
+        const userId = req.user._id;
+        const user = await User.findById(userId);
+        const usersToRetrieveRecipesFrom = [userId, ...user.following];
+
         const recipes = await Recipe.find({
-            createdBy: req.user._id
-        });
+            createdBy: {
+                $in: usersToRetrieveRecipesFrom
+            }
+        }).populate("createdBy", "username");
 
         res.status(200).json({
             message: "success",
