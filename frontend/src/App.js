@@ -8,6 +8,7 @@ import ViewRecipes from './ViewRecipes';
 import Register from './Register';
 import Account from './Account';
 import UpdateAccount from './UpdateAccount';
+import About from './About';
 import Login from './Login';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
         <Route path="/updates/:recipeId" element={<Updates />} />
         <Route path="/account" element={<Account username={username} email={email} />} />
         <Route path="/updateaccount" element={<UpdateAccount />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login setUsername={setUsername}/>} />
         <Route path="/register" element={<Register />} />
       </Routes>
