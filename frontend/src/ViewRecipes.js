@@ -109,7 +109,7 @@ function ViewRecipes() {
         <div className="App">
             <Navbar />
             <div>
-                <div className="row">
+                <div className="row m-0">
                     <div className="searchBar my-2 d-flex justify-content-center">
                         <div className="input-group" style={{ maxWidth: '300px' }}>
                             <input
@@ -122,19 +122,17 @@ function ViewRecipes() {
                     </div>
                     {filteredRecipes.map(recipe => (
                         <div key={recipe._id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
-                            <div className="card">
+                            <div className="card recipe-card" style={{ maxWidth: "360px" }}>
+                                <h5 className="card-title text-center">{recipe.title}</h5>
                                 <img
                                     src={recipe.image}
                                     className="card-img-top img-fluid"
                                     alt={recipe.title}
                                     style={{ height: "200px", objectFit: "contain" }}
                                 />
-                                <div className="card-body">
-                                    <h5 className="card-title">{recipe.title}</h5>
-                                    <p className="card-text">{recipe.ingredients}</p>
-                                    <p className="card-text">{recipe.instructions}</p>
-                                    <p className="card-text">{recipe.category}</p>
-                                    <button onClick={() => navigate(`/updates/${recipe._id}`)}>Update</button>
+                                <p className="card-title text-center">Category: {recipe.category}</p>
+                                <div className="card-body text-center">
+                                    <button className="btn btn-success" onClick={() => navigate(`/updates/${recipe._id}`)}>Update</button>
                                     <button className="btn btn-danger" onClick={() => openModal(recipe._id)}>Delete</button>
                                 </div>
                             </div>
@@ -152,14 +150,14 @@ function ViewRecipes() {
                             <p>Are you sure you want to delete this recipe?</p>
                         </div>
                         <div className="modal-footer">
-                        <button type="button" className="btn btn-danger" onClick={confirmDelete}>Yes</button>
+                            <button type="button" className="btn btn-danger" onClick={confirmDelete}>Yes</button>
                             <button type="button" className="btn btn-secondary" onClick={closeModal}>No</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    ); 
+    );
 }
 
 export default ViewRecipes;

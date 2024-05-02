@@ -22,15 +22,16 @@ function Login({ setUsername }) {
           if (response.ok) {
               // Login successful
               const responseData = await response.json();
-              const { username, email, token } = responseData;
+              const { username, email, token, bio, profilePicture } = responseData;
 
               Cookies.set("token", token);
+              
               localStorage.setItem('username', username);
               localStorage.setItem('email', email);
-              //Cookies.set("username", username);
-              //Cookies.set("email", email);
+              localStorage.setItem('bio', bio);
+              localStorage.setItem('profilePicture', profilePicture);
 
-              console.log("Login", token, username, email);
+            console.log(responseData);
               navigate('/homepage');
               
           } else {

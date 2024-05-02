@@ -58,63 +58,80 @@ function CreateRecipe() {
 
 
     return (
-        <div className="App">
-            <Navbar />
-          <h2>Create Recipe</h2>
-          <label>
-              Title:
-              <input
-                type="text"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-          <label>
-              Ingredients:
-              <input
-                type="text"
-                value={ingredients}
-                onChange={(e) => setIngredients(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-          <label>
-              Instructions:
-              <input
-                type="text"
-                value={instructions}
-                onChange={(e) => setInstructions(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Category:
-              <input
-                type="text"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <label>
-              Image:
-              <input
-                type="text"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                required
-              />
-            </label>
-            <br />
-            <button type="submit" onClick={handleCreateRecipe}>Create</button>
-          <br />
+      <div>
+        <Navbar />
+        <div className="container">
+          <div className="row mt-5">
+              <div className="col">
+                  <h2 className="text-center mb-3">Create Recipe</h2>
+                  <form>
+                      <div className="form-group mb-2"> 
+                          <label htmlFor="title">Title:</label>
+                          <input
+                              type="text"
+                              className="form-control"
+                              id="title"
+                              value={title}
+                              onChange={(e) => setTitle(e.target.value)}
+                              required
+                              style={{ minHeight: "50px" }} 
+                          />
+                      </div>
+                      <div className="form-group mb-2"> 
+                          <label htmlFor="ingredients">Ingredients:</label>
+                          <textarea
+                              className="form-control"
+                              id="ingredients"
+                              value={ingredients}
+                              onChange={(e) => setIngredients(e.target.value)}
+                              required
+                              style={{ minHeight: "120px" }} 
+                          />
+                      </div>
+                      <div className="form-group mb-2"> 
+                          <label htmlFor="instructions">Instructions:</label>
+                          <textarea
+                              className="form-control"
+                              id="instructions"
+                              value={instructions}
+                              onChange={(e) => setInstructions(e.target.value)}
+                              required
+                              style={{ minHeight: "120px" }} 
+                          />
+                      </div>
+                      <div className="form-group mb-2"> 
+                          <label htmlFor="category">Category:</label>
+                          <input
+                              type="text"
+                              className="form-control"
+                              id="category"
+                              value={category}
+                              onChange={(e) => setCategory(e.target.value)}
+                              required
+                              style={{ minHeight: "50px" }} 
+                          />
+                      </div>
+                      <div className="form-group mb-2"> {/* Added mb-3 for margin-bottom */}
+                          <label htmlFor="image">Image:</label>
+                          <input
+                              type="text"
+                              className="form-control"
+                              id="image"
+                              value={image}
+                              onChange={(e) => setImage(e.target.value)}
+                              required
+                              style={{ minHeight: "50px" }} 
+                          />
+                      </div>
+                      <div className="text-center mt-3">
+                          <button type="submit" className="btn btn-success btn-block" onClick={handleCreateRecipe}>Create</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
         </div>
-      );
+      </div>
+    );
 }
 
 export default CreateRecipe;

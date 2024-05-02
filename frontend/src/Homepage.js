@@ -78,31 +78,42 @@ function Homepage() {
     };
 
     return (
-        <div className="App">
+        <div>
             <Navbar />
-            <h1>Hello, {username} craving something?</h1>
-            <div>
-                <h2>Random Product:</h2>
-                {randomRecipe && (
-                    <div className="card">
-                        <img
-                            src={randomRecipe.image}
-                            className="card-img-top img-fluid"
-                            alt={randomRecipe.title}
-                            style={{ height: "200px", objectFit: "contain" }}
-                        />
-                        <div className="card-body">
-                            <h5 className="card-title">{randomRecipe.title}</h5>
-                            <p className="card-text">{randomRecipe.ingredients}</p>
-                            <p className="card-text">{randomRecipe.instructions}</p>
-                            <p className="card-text">{randomRecipe.category}</p>
+            <div className="container">
+                <div className="row mt-5">
+                    <div className="col">
+                        <div className="d-flex justify-content-between align-items-center mb-4">
+                            <h1>Hello, {username} craving something?</h1>
+                            <div>
+                                <button className="btn btn-success mr-2" onClick={handleCreateRecipe}>Create Recipe</button>
+                                <button className="btn btn-success mr-2" onClick={handleViewRecipes}>View Your Recipes</button>
+                            </div>
                         </div>
+                        {randomRecipe && (
+                            <div className="card text-center" style={{ maxWidth: "400px", margin: "0 auto" }}>
+                                <img
+                                    src={randomRecipe.image}
+                                    className="card-img-top img-fluid"
+                                    alt={randomRecipe.title}
+                                    style={{ height: "200px", objectFit: "contain" }}
+                                />
+                                <div className="card-body">
+                                    <div className="mt-2">
+                                        <button className="btn btn-success mr-2" onClick={handlePrevClick}>←</button>
+                                        <button className="btn btn-success mr-2" onClick={handleNextClick}>→</button>
+                                    </div>
+                                    <div className="mt-3">
+                                        <h5 className="card-title">{randomRecipe.title}</h5>
+                                    </div>
+                                    <p className="card-text">Ingredients: {randomRecipe.ingredients}</p>
+                                    <p className="card-text">Instructions: {randomRecipe.instructions}</p>
+                                    <p className="card-text">Category: {randomRecipe.category}</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
-                <button onClick={handlePrevClick}>←</button>
-                <button onClick={handleNextClick}>→</button>
-                <button onClick={handleCreateRecipe}>Create Recipe</button>
-                <button onClick={handleViewRecipes}>View Your Recipes</button>
+                </div>
             </div>
         </div>
     );
