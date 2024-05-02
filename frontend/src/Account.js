@@ -8,7 +8,9 @@ function Account() {
     const [userId, setUserId] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('')
+    const [bio, setBio] = useState('');
+    const [pfp, setPfp] = useState('');
+    const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
 
     const navigate = useNavigate();
@@ -19,9 +21,12 @@ function Account() {
     useEffect(() => {
         if (token) {
             const decodedToken = jwtDecode(token);
+
             setUserId(decodedToken.userId);
             setUsername(localStorage.getItem('username') || '');
             setEmail(localStorage.getItem('email') || '');
+            setBio(localStorage.getItem('bio') || '');
+            setPfp(localStorage.getItem('profilePicture') || '');
         } else {
             navigate('/login');
         }
@@ -33,6 +38,8 @@ function Account() {
         Cookies.remove('token');
         localStorage.removeItem('username');
         localStorage.removeItem('email');
+        localStorage.removeItem('bio');
+        localStorage.removeItem('profilePicture');
 
         navigate('/login');
     };
@@ -57,8 +64,12 @@ function Account() {
                     body: JSON.stringify({ "_id": userId })
                 });
                 Cookies.remove('token');
+
                 localStorage.removeItem('username');
                 localStorage.removeItem('email');
+                localStorage.removeItem('bio');
+                localStorage.removeItem('profilePicture');
+
                 alert("User deleted!");
                 navigate('/login');
             } else {
@@ -84,8 +95,17 @@ function Account() {
         <div>
             <Navbar />
             <h1> Account Information</h1>
+            <div style={{ textAlign: "center" }}>
+                <img
+                    src={pfp}
+                    className="rounded-circle"
+                    alt={username}
+                    style={{ height: "205px", width: "250px", objectFit: "cover" }}
+                />
+            </div>
             <h2> {username} </h2>
             <h2> {email} </h2>
+            <h2> {bio} </h2>
             <button onClick={handleLogout}>Log Out</button>
             <button onClick={() => setShowModal(true)}>Delete Account</button>
             <button onClick={handleUpdate}>Update Account</button>
