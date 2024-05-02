@@ -82,6 +82,10 @@ exports.loginUser = async (req, res) => {
             message: "Logged in successfully",
             username: user.username,
             email: user.email,
+            bio: user.bio,
+            profilePicture: user.profilePicture,
+            followers: user.followers,
+            following: user.following,
             token
         });
 
@@ -172,6 +176,76 @@ exports.deleteUser = async (req, res) => {
         session.endSession();
         
         console.error("Delete user error: ", error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+};
+
+exports.followUser = async (req, res) => {
+    const userId = req.user._id;
+    const targetUserId = req.params.targetUserId;
+
+    try {
+        if (userId.toString() === targetUserId.toString()) {
+            return res.status(400).json({
+                message: "You cannot follow yourself"
+            });
+        }
+
+        await User.findByIdAndUpdate(userId, {
+            $addToSet: {
+                following: targetUserId
+            }
+        });
+
+        await User.findByIdAndUpdate(targetUserId, {
+            $addToSet: {
+                followers: userId
+            }
+        });
+        
+        res.status(200).json({
+            message: "User followed successfully"
+        });
+
+    } catch (error) {
+        console.error("Error following user: ", error);
+        res.status(500).json({
+            message: "Internal Server Error"
+        });
+    }
+};
+
+exports.unfollowUser = async (req, res) => {
+    const userId = req.user._id;
+    const targetUserId = req.params.targetUserId;
+
+    try {
+        if (userId.toString() === targetUserId.toString()) {
+            return res.status(400).json({
+                message: "You cannot unfollow yourself"
+            });
+        }
+
+        await User.findByIdAndUpdate(userId, {
+            $pull: {
+                following: targetUserId
+            }
+        });
+
+        await User.findByIdAndUpdate(targetUserId, {
+            $pull: {
+                followers: userId
+            }
+        });
+        
+        res.status(200).json({
+            message: "User unfollowed successfully"
+        });
+
+    } catch (error) {
+        console.error("Error unfollowing user: ", error);
         res.status(500).json({
             message: "Internal Server Error"
         });

@@ -23,7 +23,19 @@ const UserSchema = new mongoose.Schema({
     profilePicture: {
         type: String,
         default: "default_profile.jpg"
-    }
+    },
+    followers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+    following: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ]
 }, {collection: 'users'});
 
 UserSchema.pre("save", async function (next) {
