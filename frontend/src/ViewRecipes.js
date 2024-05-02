@@ -4,9 +4,6 @@ import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
 
 function ViewRecipes() {
-    const [recipeId, setRecipeId] = useState('');
-
-function ViewRecipes() {
     const [recipes, setRecipes] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const token = Cookies.get('token');
