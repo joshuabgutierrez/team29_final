@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 function ViewRecipes() {
     const [recipes, setRecipes] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const token = Cookies.get('token');
+    const navigate = useNavigate();
 
     const fetchRecipes = async () => {
         try {
@@ -78,6 +80,7 @@ function ViewRecipes() {
         setSearchInput(inputValue);
     }
 
+
     // Ensure recipes is an array before filtering
     const filteredRecipes = Array.isArray(recipes) ? recipes.filter((recipe) => {
         return recipe.title.toLowerCase().includes(searchInput);
@@ -112,8 +115,8 @@ function ViewRecipes() {
                                     <p className="card-text">{recipe.ingredients}</p>
                                     <p className="card-text">{recipe.instructions}</p>
                                     <p className="card-text">{recipe.category}</p>
+                                    <button onClick={() => navigate(`/updates/${recipe._id}`)}>Update</button>
                                     <button onClick={() => handleDelete(recipe._id)}>Delete</button>
-
                                 </div>
                             </div>
                         </div>
