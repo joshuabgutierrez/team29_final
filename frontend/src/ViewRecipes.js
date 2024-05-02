@@ -149,7 +149,7 @@ function ViewRecipes() {
                             <h5 className="modal-title">Confirm Deletion</h5>
                         </div>
                         <div className="modal-body">
-                            <p>Are you sure you want to delete this product?</p>
+                            <p>Are you sure you want to delete this recipe?</p>
                         </div>
                         <div className="modal-footer">
                         <button type="button" className="btn btn-danger" onClick={confirmDelete}>Yes</button>
