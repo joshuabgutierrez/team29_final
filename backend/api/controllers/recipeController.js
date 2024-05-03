@@ -89,7 +89,12 @@ exports.getSingleRecipe = async (req, res) => {
     const recipeId = req.params.recipeId;
 
     try {
-        const recipe = await Recipe.findById(recipeId);
+        const recipe = await Recipe.findById(recipeId)
+        .populate("createdBy", "username")
+        .populate({
+            path: "comments.user",
+            select: "username"
+        });
 
         if (!recipe) {
             return res.status(404).json({
