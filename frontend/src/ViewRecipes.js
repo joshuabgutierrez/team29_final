@@ -14,7 +14,7 @@ function ViewRecipes() {
 
     const fetchRecipes = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/recipes/all', {
+            const response = await fetch('http://localhost:5000/api/recipes/myall', {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
