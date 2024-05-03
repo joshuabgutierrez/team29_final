@@ -103,6 +103,9 @@ function Homepage() {
                                         <button className="btn btn-success mr-2" onClick={handlePrevClick}>←</button>
                                         <button className="btn btn-success mr-2" onClick={handleNextClick}>→</button>
                                     </div>
+                                    <div className="mt-2">
+                                        <button className="btn btn-success" onClick={() => navigate(`/recipesinfo/${randomRecipe._id}`)}>View</button>
+                                    </div>
                                     <div className="mt-3">
                                         <h5 className="card-title">{randomRecipe.title}</h5>
                                         <p className="card-text">Recipe By: {randomRecipe.creatorInfo.username}</p>

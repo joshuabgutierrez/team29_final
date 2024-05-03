@@ -76,6 +76,7 @@ function Recipes() {
                                 <div className="card-body">
                                     <h5 className="card-title">{recipe.title}</h5>
                                     <p className="card-text">Recipe by: {recipe.creatorInfo.username}</p>
+                                    <button className="btn btn-success" onClick={() => navigate(`/recipesinfo/${recipe._id}`)}>View</button>
                                 </div>
                             </div>
                         </div>
