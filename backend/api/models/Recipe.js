@@ -22,13 +22,10 @@ const RecipeSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    ratings: [
+    likes: [
         {
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            },
-            score: Number
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
         }
     ],
     comments: [
