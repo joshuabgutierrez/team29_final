@@ -11,6 +11,7 @@ import UpdateAccount from './UpdateAccount';
 import About from './About';
 import Login from './Login';
 import Landing from './components/Landing';
+import ViewUsers from './components/Users/ViewUsers';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -45,6 +46,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login setUsername={setUsername}/>} />
         <Route path="/register" element={<Register />} />
+        <Route path="/viewusers" element={<ViewUsers />} />
       </Routes>
     </BrowserRouter>
   );
