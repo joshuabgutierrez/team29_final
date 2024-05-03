@@ -105,10 +105,8 @@ function Homepage() {
                                     </div>
                                     <div className="mt-3">
                                         <h5 className="card-title">{randomRecipe.title}</h5>
+                                        <p className="card-text">Recipe By: {randomRecipe.creatorInfo.username}</p>
                                     </div>
-                                    <p className="card-text">Ingredients: {randomRecipe.ingredients}</p>
-                                    <p className="card-text">Instructions: {randomRecipe.instructions}</p>
-                                    <p className="card-text">Category: {randomRecipe.category}</p>
                                 </div>
                             </div>
                         )}

@@ -1,19 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 function Recipes() {
     const [recipes, setRecipes] = useState([]);
     const [searchInput, setSearchInput] = useState("");
+    const token = Cookies.get('token');
     const navigate = useNavigate();
 
-    // TEST
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products')
-            .then(response => response.json())
-            .then(data => setRecipes(data))
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+        const fetchRecipes = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/recipes/all', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch recipes');
+                }
+
+                const data = await response.json();
+                console.log(data);
+                setRecipes(data.recipes || []);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchRecipes();
+    }, [token]); // Include token as a dependency
 
     const handleSearchChange = (e) => {
         const inputValue = e.target.value.toLowerCase();
@@ -56,8 +75,7 @@ function Recipes() {
                                 />
                                 <div className="card-body">
                                     <h5 className="card-title">{recipe.title}</h5>
-                                    <p className="card-text">{recipe.description}</p>
-                                    <p className="card-text">${recipe.price}</p>
+                                    <p className="card-text">Recipe by: {recipe.creatorInfo.username}</p>
                                 </div>
                             </div>
                         </div>
