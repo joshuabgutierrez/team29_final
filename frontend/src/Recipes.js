@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
+import { useNavigate } from "react-router-dom";
 
 function Recipes() {
     const [recipes, setRecipes] = useState([]);
     const [searchInput, setSearchInput] = useState("");
+    const navigate = useNavigate();
 
     // TEST
     useEffect(() => {
@@ -20,7 +22,12 @@ function Recipes() {
 
     const filteredRecipes = recipes.filter((recipe) => {
         return recipe.title.toLowerCase().includes(searchInput);
-      });
+    });
+
+    const handleViewUsers = (e) => {
+        e.preventDefault();
+        navigate('/viewusers');
+    }
 
     return (
         <div className="App">
@@ -36,6 +43,7 @@ function Recipes() {
               onChange={handleSearchChange}
               value={searchInput} />
           </div>
+          <button className="btn btn-success mr-2" onClick={handleViewUsers}>Find Users</button>
         </div>
                     {filteredRecipes.map(recipe => (
                         <div key={recipe.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
