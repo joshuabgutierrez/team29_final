@@ -43,7 +43,6 @@ function ViewRecipes() {
                 headers: { 'content-type': 'application/json', 'authorization': `Bearer ${token}` },
                 body: JSON.stringify({ "_id": recipeId })
             });
-            alert("Recipe deleted!");
             fetchRecipes();
         } catch (error) {
             alert("An error has occurred.");

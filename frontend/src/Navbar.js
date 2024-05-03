@@ -1,7 +1,24 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 function Navbar() {
+  const navigate = useNavigate();
+  const handleLogout = async (e) => {
+    e.preventDefault();
+
+    Cookies.remove('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('email');
+    localStorage.removeItem('bio');
+    localStorage.removeItem('profilePicture');
+    localStorage.removeItem('likedRecipes');
+
+    navigate('/login');
+
+};
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -28,6 +45,11 @@ function Navbar() {
             <li className="nav-item me-3">
               <NavLink className="nav-link" to="/account">
                 Account
+              </NavLink>
+            </li>
+            <li className="nav-item me-3">
+              <NavLink className="nav-link" onClick={handleLogout}>
+                Logout
               </NavLink>
             </li>
           </ul>
