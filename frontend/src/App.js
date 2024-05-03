@@ -12,6 +12,7 @@ import About from './About';
 import Login from './Login';
 import Landing from './components/Landing';
 import ViewUsers from './components/Users/ViewUsers';
+import RecipesInfo from './components/Recipes/RecipeInfo';
 
 function App() {
   const [username, setUsername] = useState('');
@@ -47,6 +48,7 @@ function App() {
         <Route path="/login" element={<Login setUsername={setUsername}/>} />
         <Route path="/register" element={<Register />} />
         <Route path="/viewusers" element={<ViewUsers />} />
+        <Route path="/recipesinfo/:recipeId" element={<RecipesInfo />} />
       </Routes>
     </BrowserRouter>
   );
