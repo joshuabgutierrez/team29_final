@@ -150,7 +150,7 @@ function ViewUsers() {
                                 {user._id !== loggedInUser ? (
                                     <div style={{ display: "flex", justifyContent: "center" }}>
                                         <button
-                                            className="btn btn-success"
+                                            className={`btn ${user.followers.includes(loggedInUser) ? "btn-danger" : "btn-success"}`}
                                             onClick={() => user.followers.includes(loggedInUser) ? handleUnfollow(user._id) : handleFollow(user._id)}
                                             style={{ width: "100px", marginTop: "10px" }}
                                         >

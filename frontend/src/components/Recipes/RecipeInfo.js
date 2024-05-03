@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 function RecipesInfo() {
     const { recipeId } = useParams();
-    const [recipes, setRecipes] = useState({});
+    const [recipe, setRecipe] = useState([]);
     const [searchInput, setSearchInput] = useState("");
     const token = Cookies.get('token');
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ function RecipesInfo() {
 
                 const data = await response.json();
                 console.log(data);
-                setRecipes(data.recipe); // Corrected to set individual recipe
+                setRecipe(data.recipe); // Corrected to set individual recipe
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -36,36 +36,66 @@ function RecipesInfo() {
         fetchRecipes();
     }, [recipeId, token]); // Include recipeId and token as dependencies
 
+
     return (
-        <div className="App">
-            <Navbar />
-            <div>
-                <div className="row">
-                    <div className="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        <div className="card">
-                            <img
-                                src={recipes.image}
-                                className="card-img-top img-fluid"
-                                alt={recipes.title}
-                                style={{ height: "200px", objectFit: "contain" }}
-                            />
-                            <div className="card-body">
-                                <h5 className="card-title">{recipes.title}</h5>
-                                <p className="card-text">Category: {recipes.category}</p>
-                                <p className="card-text">Created By: {recipes.createdBy}</p>
-                                <p className="card-text">Ingredients:</p>
-                                <ul>
-                                    {recipes.ingredients && recipes.ingredients.map((ingredient, index) => (
-                                        <li key={index}>{ingredient}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        </div>
+      <div className="App">
+        <Navbar />
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="card mt-4">
+                <div className="card-body">
+                  <div className="row">
+                    <div className="col-lg-4 col-md-6 col-sm-12 mb-4 mt-4">
+                      <img
+                        src={recipe.image}
+                        alt={recipe.title}
+                        style={{ maxHeight: "200px", maxWidth: "205%", objectFit: "contain" }}
+                      />
                     </div>
+                    <div className="col-lg-8 col-md-6 col-sm-12 mb-4 mt-4">
+                      <div className="card-body">
+                        <h5 className="card-title">{recipe.title}</h5>
+                        {<p className="card-text">Recipe by: {recipe.createdBy.username}</p>}
+                        <p className="card-text">Category: {recipe.category}</p>
+                        <h5 className="card-text">Ingredients:</h5>
+                        <ul>
+                          {recipe.ingredients && recipe.ingredients.map((ingredient, index) => (
+                            <li key={index}>{ingredient}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-lg-12">
+                      <div className="card-body">
+                        <div className="col-lg-12 mb-4 mt-4">
+                          <h5 className="card-title text-center">Instructions:</h5> 
+                          <p className="card-text">{recipe.instructions}</p>
+                        </div>
+                        <div className="col-lg-12">
+                          <h5 className="card-title text-center">Comments:</h5>
+                          {recipe.comments && recipe.comments.length > 0 ? (
+                            recipe.comments.map((comment, index) => (
+                            <div key={index}>
+                              <p className='text-center'><strong>{comment.user ? comment.user : 'Deleted User'}:</strong> {comment.text}</p>
+                            </div>
+                          ))
+                        ) : (
+                        <p className='text-center'>No comments available</p>
+                        )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    );     
 }
 
 export default RecipesInfo;
