@@ -77,6 +77,10 @@ function Homepage() {
         navigate('/viewrecipes');
     };
 
+    const noRecipesMessage = !recipes.length && (
+        <p>No recipes available. You can create one now or find some!</p>
+    );
+
     return (
         <div>
             <Navbar />
@@ -113,6 +117,7 @@ function Homepage() {
                                 </div>
                             </div>
                         )}
+                        {noRecipesMessage}
                     </div>
                 </div>
             </div>

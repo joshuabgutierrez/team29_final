@@ -54,7 +54,7 @@ function ViewRecipes() {
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/recipes/all', {
+                const response = await fetch('http://localhost:5000/api/recipes/myall', {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
@@ -131,6 +131,7 @@ function ViewRecipes() {
                                 />
                                 <p className="card-title text-center">Category: {recipe.category}</p>
                                 <div className="card-body text-center">
+                                <button className="btn btn-success" onClick={() => navigate(`/recipesinfo/${recipe._id}`)}>View</button>
                                     <button className="btn btn-success" onClick={() => navigate(`/updates/${recipe._id}`)}>Update</button>
                                     <button className="btn btn-danger" onClick={() => openModal(recipe._id)}>Delete</button>
                                 </div>

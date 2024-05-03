@@ -52,33 +52,71 @@ function Updates() {
 
     return (
         <div>
-            <Navbar />
-            <h1>Update Recipe</h1>
-            <form onSubmit={handleUpdateRecipe}>
-                <label>
-                    Title:
-                    <input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} />
-                </label>
-                <label>
-                    Ingredients:
-                    <input type="text" value={newIngredients} onChange={(e) => setNewIngredients(e.target.value)} />
-                </label>
-                <label>
-                    Instructions:
-                    <input type="text" value={newInstructions} onChange={(e) => setNewInstructions(e.target.value)} />
-                </label>
-                <label>
-                    Category:
-                    <input type="text" value={newCategory} onChange={(e) => setNewCategory(e.target.value)} />
-                </label>
-                <label>
-                    Image:
-                    <input type="text" value={newInstructions} onChange={(e) => setNewImage(e.target.value)} />
-                </label>
-                <button type="submit">Update</button>
-            </form>
-        </div>
-    );
+          <Navbar />
+          <div className="container">
+            <div className="row mt-5">
+              <div className="col-md-6 mx-auto">
+                    <h2 className="text-center mb-3">Update Recipe</h2>
+                    <form onSubmit={handleUpdateRecipe}>
+                      <div className="mb-3"> 
+                        <label htmlFor="title" className="form-label">Title:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="title"
+                          value={newTitle}
+                          onChange={(e) => setNewTitle(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3"> 
+                        <label htmlFor="ingredients" className="form-label">Ingredients:</label>
+                        <textarea
+                          className="form-control"
+                          id="ingredients"
+                          value={newIngredients}
+                          onChange={(e) => setNewIngredients(e.target.value)}
+                          rows="5"
+                        />
+                      </div>
+                      <div className="mb-3"> 
+                        <label htmlFor="instructions" className="form-label">Instructions:</label>
+                        <textarea
+                          className="form-control"
+                          id="instructions"
+                          value={newInstructions}
+                          onChange={(e) => setNewInstructions(e.target.value)}
+                          rows="5"
+                        />
+                      </div>
+                      <div className="mb-3"> 
+                        <label htmlFor="category" className="form-label">Category:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="category"
+                          value={newCategory}
+                          onChange={(e) => setNewCategory(e.target.value)}
+                        />
+                      </div>
+                      <div className="mb-3"> 
+                        <label htmlFor="image" className="form-label">Image:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="image"
+                          value={newImage}
+                          onChange={(e) => setNewImage(e.target.value)}
+                        />
+                      </div>
+                      <div className="text-center mt-3">
+                        <button type="submit" className="btn btn-success btn-block">Update</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+      );
       
 }
 
