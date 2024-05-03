@@ -6,13 +6,14 @@ import { useParams } from "react-router-dom";
 
 function RecipesInfo() {
     const { recipeId } = useParams();
-    const [recipe, setRecipe] = useState([]);
-    const [searchInput, setSearchInput] = useState("");
+    const [recipe, setRecipe] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const token = Cookies.get('token');
-    const navigate = useNavigate();
-
+  
     useEffect(() => {
         const fetchRecipes = async () => {
+          console.log("Hello")
             try {
                 const response = await fetch(`http://localhost:5000/api/recipes/${recipeId}`, {
                     headers: {
@@ -26,16 +27,68 @@ function RecipesInfo() {
                 }
 
                 const data = await response.json();
-                console.log(data);
+                console.log("Data", data);
                 setRecipe(data.recipe); // Corrected to set individual recipe
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setLoading(false);
             }
         };
 
         fetchRecipes();
     }, [recipeId, token]); // Include recipeId and token as dependencies
 
+    const handleLike = async (targetRecipeId) => {
+      try {
+          const response = await fetch(`http://localhost:5000/api/recipes/${targetRecipeId}/like`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}` // Include the user's JWT token for authentication
+              }
+          });
+  
+          if (response.ok) {
+              console.log('Liked successfully');
+          } else {
+              const errorData = await response.json();
+              console.error('Like error:', errorData.message || 'Failed to like recipe');
+          }
+      } catch (error) {
+          console.error('Error liking recipe:', error);
+      }
+  };
+
+  const handleUnlike = async (targetRecipeId) => {
+      try {
+          const response = await fetch(`http://localhost:5000/api/recipes/${targetRecipeId}/unlike`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}` // Include the user's JWT token for authentication
+              }
+          });
+  
+          if (response.ok) {
+              console.log('Unliked successfully');
+          } else {
+              const errorData = await response.json();
+              console.error('Unliked error:', errorData.message || 'Failed to follow user');
+          }
+      } catch (error) {
+          console.error('Error Unliked recipe:', error);
+      }
+  };
+
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+  
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
       <div className="App">
@@ -72,19 +125,24 @@ function RecipesInfo() {
                       <div className="card-body">
                         <div className="col-lg-12 mb-4 mt-4">
                           <h5 className="card-title text-center">Instructions:</h5> 
-                          <p className="card-text">{recipe.instructions}</p>
+                          <p className="card-text text-center">{recipe.instructions}</p>
                         </div>
                         <div className="col-lg-12">
                           <h5 className="card-title text-center">Comments:</h5>
                           {recipe.comments && recipe.comments.length > 0 ? (
                             recipe.comments.map((comment, index) => (
                             <div key={index}>
-                              <p className='text-center'><strong>{comment.user ? comment.user : 'Deleted User'}:</strong> {comment.text}</p>
+                              <p className='text-center'><strong>{comment.user.username ? comment.user.username : 'Deleted User'}:</strong> {comment.text}</p>
                             </div>
                           ))
                         ) : (
                         <p className='text-center'>No comments available</p>
                         )}
+                        {recipe.isLikedbyMe ? (
+                                        <button className="btn btn-danger" onClick={() => handleUnlike(recipe._id)}>Unlike</button>
+                                    ) : (
+                                        <button className="btn btn-success" onClick={() => handleLike(recipe._id)}>Like</button>
+                                    )}
                         </div>
                       </div>
                     </div>
