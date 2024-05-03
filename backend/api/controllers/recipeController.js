@@ -43,7 +43,7 @@ exports.getAllRecipes = async (req, res) => {
                     createdAt: 1,
                     image: 1,
                     likesCount: {
-                        $size: "$likes"
+                        $size: {$ifNull: ["$likes", []]}
                     },
                     isLikedbyMe: 1,
                     "creatorInfo.username": 1
@@ -161,7 +161,7 @@ exports.likeRecipe = async (req, res) => {
         if (recipe.likes.length > 0) {
             if (recipe.likes.includes(userId)) {
                 return res.status(400).json({
-                    message: "You have already likes this recipe"
+                    message: "You have already liked this recipe"
                 })
             }
         }
