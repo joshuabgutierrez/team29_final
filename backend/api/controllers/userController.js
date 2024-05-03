@@ -202,14 +202,15 @@ exports.followUser = async (req, res) => {
             }
         });
 
-        await User.findByIdAndUpdate(targetUserId, {
+        const updatedFollowers = await User.findByIdAndUpdate(targetUserId, {
             $addToSet: {
                 followers: userId
             }
         });
         
         res.status(200).json({
-            message: "User followed successfully"
+            message: "User followed successfully",
+            followers: updatedFollowers
         });
 
     } catch (error) {
