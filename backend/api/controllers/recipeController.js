@@ -63,6 +63,51 @@ exports.getAllRecipes = async (req, res) => {
     }
 };
 
+exports.getMyRecipes = async (req, res) => {
+    const userId = req.user._id;
+
+    try {
+        const recipes = await Recipe.find({createdBy: userId})
+        .populate("createdBy", "username")
+        .exec();
+
+        res.status(200).json({
+            message: "Success",
+            recipes
+        })
+    } catch (error) {
+        console.error("Error fetching recipes: ", error.message);
+        res.status(500).json({
+            message: "Failed to get recipes"
+        }); 
+    }
+};
+
+exports.getSingleRecipe = async (req, res) => {
+    const recipeId = req.params.recipeId;
+
+    try {
+        const recipe = await Recipe.findById(recipeId);
+
+        if (!recipe) {
+            return res.status(404).json({
+                message: "Recipe not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Recipe retrieved successfully",
+            recipe
+        });
+
+    } catch (error) {
+        console.error("Error fetching recipe: ", error.message);
+        res.status(500).json({
+            message: "Failed to get recipe"
+        }); 
+    }
+};
+
 exports.createRecipe = async (req, res) => {
     try {
         const newRecipe = new Recipe({
