@@ -66,6 +66,8 @@ exports.getAllRecipes = async (req, res) => {
 exports.getMyRecipes = async (req, res) => {
     const userId = req.user._id;
 
+    console.log(userId);
+
     try {
         const recipes = await Recipe.find({createdBy: userId})
         .populate("createdBy", "username")

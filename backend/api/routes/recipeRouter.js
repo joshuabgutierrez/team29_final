@@ -5,12 +5,12 @@ const { authorizeRecipe } = require("../../middleware/recipeMiddleware");
 
 const router = express.Router();
 
-router.get("/:recipeId", protect, getSingleRecipe);
-router.get("/all", protect, getAllRecipes);
 router.get("/myall", protect, getMyRecipes);
+router.get("/all", protect, getAllRecipes);
 router.post("/create", createRecipe);
 router.put("/update/:recipeId", protect, authorizeRecipe, updateRecipe);
 router.delete("/delete/:recipeId", protect, authorizeRecipe, deleteRecipe);
+router.get("/:recipeId", protect, getSingleRecipe);
 router.post("/:recipeId/like", protect, likeRecipe);
 router.post("/:recipeId/unlike", protect, unlikeRecipe);
 
