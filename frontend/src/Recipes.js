@@ -48,6 +48,10 @@ function Recipes() {
         navigate('/viewusers');
     }
 
+    const noRecipesMessage = !recipes.length && (
+        <p className='text-center'>No recipes available. Find and follow users to see other recipes</p>
+    );
+
     return (
         <div className="App">
             <Navbar />
@@ -73,7 +77,7 @@ function Recipes() {
                                     alt={recipe.title}
                                     style={{ height: "200px", objectFit: "contain" }}
                                 />
-                                <div className="card-body">
+                                <div className="card-body text-center">
                                     <h5 className="card-title">{recipe.title}</h5>
                                     <p className="card-text">Recipe by: {recipe.creatorInfo.username}</p>
                                     <button className="btn btn-success" onClick={() => navigate(`/recipesinfo/${recipe._id}`)}>View</button>
@@ -81,6 +85,7 @@ function Recipes() {
                             </div>
                         </div>
                     ))}
+                    {noRecipesMessage}
                 </div>
             </div>
         </div>

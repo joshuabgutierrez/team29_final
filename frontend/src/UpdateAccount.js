@@ -65,29 +65,65 @@ function UpdateAccount() {
 
     return (
         <div>
-            <Navbar />
-            <h1>Update Account</h1>
-            <form onSubmit={handleUpdateUser}>
-                <label>
-                    Username:
-                    <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
-                </label>
-                <label>
-                    Email:
-                    <input type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
-                </label>
-                <label>
-                    Bio:
-                    <input type="text" value={newBio} onChange={(e) => setNewBio(e.target.value)} />
-                </label>
-                <label>
-                    Profile Picture:
-                    <input type="text" value={newPFP} onChange={(e) => setNewPFP(e.target.value)} />
-                </label>
-                <button type="submit">Update</button>
-            </form>
+          <Navbar />
+          <div className="container mt-5">
+            <div className="row justify-content-center">
+              <div className="col-md-6">
+                <div className="card">
+                  <div className="card-body">
+                    <h1 className="card-title text-center mb-4">Update Account</h1>
+                    <form onSubmit={handleUpdateUser}>
+                      <div className="mb-3">
+                        <label htmlFor="newUsername" className="form-label">Username:</label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          id="newUsername" 
+                          value={newUsername} 
+                          onChange={(e) => setNewUsername(e.target.value)} 
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="newEmail" className="form-label">Email:</label>
+                        <input 
+                          type="email" 
+                          className="form-control" 
+                          id="newEmail" 
+                          value={newEmail} 
+                          onChange={(e) => setNewEmail(e.target.value)} 
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="newBio" className="form-label">Bio:</label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          id="newBio" 
+                          value={newBio} 
+                          onChange={(e) => setNewBio(e.target.value)} 
+                        />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="newPFP" className="form-label">Profile Picture:</label>
+                        <input 
+                          type="text" 
+                          className="form-control" 
+                          id="newPFP" 
+                          value={newPFP} 
+                          onChange={(e) => setNewPFP(e.target.value)} 
+                        />
+                      </div>
+                      <div className="text-center mt-3">
+                      <button type="submit" className="btn btn-success">Update</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      );
 }
 
 export default UpdateAccount;

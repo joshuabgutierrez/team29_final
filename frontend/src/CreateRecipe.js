@@ -35,7 +35,7 @@ function CreateRecipe() {
                 },
                 body: JSON.stringify({ 
                     title, 
-                    ingredients, 
+                    ingredients: ingredients.split('\n').map(ingredient => ingredient.trim()),
                     instructions, 
                     image,
                     category,
