@@ -32,18 +32,6 @@ function Account() {
         }
     }, [token, location]);
 
-    const handleLogout = async (e) => {
-        e.preventDefault();
-
-        Cookies.remove('token');
-        localStorage.removeItem('username');
-        localStorage.removeItem('email');
-        localStorage.removeItem('bio');
-        localStorage.removeItem('profilePicture');
-
-        navigate('/login');
-    };
-
     const handleDelete = async (e) => {
         e.preventDefault();
         // Call the login API to check the password before proceeding with deletion
@@ -106,7 +94,6 @@ function Account() {
             <h2> {username} </h2>
             <h2> {email} </h2>
             <h2> {bio} </h2>
-            <button onClick={handleLogout}>Log Out</button>
             <button onClick={() => setShowModal(true)}>Delete Account</button>
             <button onClick={handleUpdate}>Update Account</button>
 
