@@ -267,3 +267,84 @@ exports.unlikeRecipe = async (req, res) => {
        });
     }
 };
+
+exports.addCommentsToRecipe = async (req, res) => {
+    const {recipeId} = req.params;
+    const userId = req.user._id;
+    const text = req.body.text;
+
+    try {
+        const recipe = await Recipe.findById(recipeId);
+
+        if (!recipe) {
+            return res.status(404).json({
+                message: "Recipe not found"
+            });
+        }
+
+        const creator = await User.findById(recipe.createdBy);
+
+        if (!creator.followers.includes(userId) && !recipe.createdBy.equals(userId)) {
+            return res.status(403).json({
+                message: "You can only comment on recipes by users you follow or your own recipes"
+            });           
+        }
+
+        const comment = {
+            text,
+            user: userId
+        };
+
+        recipe.comments.push(comment);
+
+        await recipe.save();
+
+        res.status(201).json({
+            message: "Comment added successfully",
+            comment
+        });
+
+    } catch (error) {
+        console.error("Error adding a comment", error.message);
+        res.status(500).json({
+            message: "Failed to add comment"
+        })  
+    }
+};
+
+exports.deleteCommentFromRecipe = async (req, res) => {
+    const userId = req.user._id;
+    const {recipeId} = req.params;
+    const {commentId} = req.body;
+
+    try {
+        const recipe = await Recipe.findById(recipeId);
+
+        if (!recipe) {
+            return res.status(404).json({
+                message: "Recipe not found"
+            });
+        }
+
+        const commentIndex = recipe.comments.findIndex(comment => comment._id.equals(commentId) && comment.user.equals(userId));
+
+        if (commentIndex === -1) {
+            return res.status(404).json({
+                message: "Comment not found or not yours to delete"
+            })
+        }
+
+        recipe.comments.splice(commentIndex, 1);
+
+        await recipe.save();
+
+        res.status(200).json({
+            message: "Comment deleted successfully"
+        });
+    } catch (error) {
+        console.error("Error deleting comment:", error);
+        res.status(500).json({
+            message: "Failed to delete comment"
+        })
+    }
+};
