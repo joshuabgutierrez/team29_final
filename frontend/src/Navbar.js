@@ -37,14 +37,14 @@ function Navbar() {
                 Recipes
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link me-3" to="/about">
-                About
-              </NavLink>
-            </li>
             <li className="nav-item me-3">
               <NavLink className="nav-link" to="/account">
                 Account
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link me-3" to="/about">
+                About
               </NavLink>
             </li>
             <li className="nav-item me-3">

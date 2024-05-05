@@ -93,11 +93,11 @@ function ViewRecipes() {
     const closeModal = () => setShowModal(false);
 
     const confirmDelete = async () => {
-        if (!recipeIdToDelete) return; // Check if recipeIdToDelete is set
+        if (!recipeIdToDelete) return; 
     
         try {
             await handleDelete(recipeIdToDelete);
-            closeModal(); // Close the modal after successful deletion
+            closeModal(); 
         } catch (error) {
             console.error('ERROR:', error);
         }

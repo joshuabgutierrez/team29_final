@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from './Navbar';
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 function About() {
+    const token = Cookies.get('token');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+    }, []);
+
     return (
         <div>
            <Navbar /> 

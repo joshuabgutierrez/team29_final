@@ -63,7 +63,7 @@ function Recipes() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` // Include the user's JWT token for authentication
+                    'Authorization': `Bearer ${token}` 
                 }
             });
 
@@ -78,6 +78,7 @@ function Recipes() {
             console.error('Error Unliked recipe:', error);
         }
     };
+    
 
 
     const handleSearchChange = (e) => {
