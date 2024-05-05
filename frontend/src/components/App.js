@@ -1,18 +1,18 @@
 import React, { useState, useEffect  } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Homepage from './Homepage';
-import Recipes from './Recipes';
-import CreateRecipe from './CreateRecipe';
-import Updates from './Updates';
-import ViewRecipes from './ViewRecipes';
-import Register from './Register';
-import Account from './Account';
-import UpdateAccount from './UpdateAccount';
+import Homepage from './Users/Homepage';
+import Recipes from './Recipes/Recipes';
+import CreateRecipe from './Recipes/CreateRecipe';
+import Updates from './Recipes/Updates';
+import ViewRecipes from './Recipes/ViewRecipes';
+import Register from './Users/Register';
+import Account from './Users/Account';
+import UpdateAccount from './Users/UpdateAccount';
 import About from './About';
-import Login from './Login';
-import Landing from './components/Landing';
-import ViewUsers from './components/Users/ViewUsers';
-import RecipesInfo from './components/Recipes/RecipeInfo';
+import Login from './Users/Login';
+import Landing from './Landing';
+import ViewUsers from './Users/ViewUsers';
+import RecipesInfo from './Recipes/RecipeInfo';
 
 function App() {
   const [username, setUsername] = useState('');

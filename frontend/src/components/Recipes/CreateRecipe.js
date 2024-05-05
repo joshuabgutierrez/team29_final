@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from 'js-cookie';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 
 function CreateRecipe() {
     const [userId, setUserId] = useState('');
