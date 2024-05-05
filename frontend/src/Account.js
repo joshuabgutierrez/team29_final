@@ -34,7 +34,7 @@ function Account() {
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        // Call the login API to check the password before proceeding with deletion
+
         try {
             const response = await fetch('http://localhost:5000/api/users/login', {
                 method: 'POST',
@@ -44,7 +44,7 @@ function Account() {
                 body: JSON.stringify({ email, password }),
             });
             if (response.ok) {
-                // Password verified, proceed with account deletion
+
                 const responseData = await response.json();
                 await fetch(`http://localhost:5000/api/users/delete/${userId}`, {
                     method: 'DELETE',
@@ -82,30 +82,42 @@ function Account() {
     return (
         <div>
             <Navbar />
-            <h1> Account Information</h1>
-            <div style={{ textAlign: "center" }}>
-                <img
-                    src={pfp}
-                    className="rounded-circle"
-                    alt={username}
-                    style={{ height: "205px", width: "250px", objectFit: "cover" }}
-                />
+            <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-lg-6">
+                    <div className="card">
+                        <div className="card-body">
+                            <h1 className="card-title text-center mb-4">Account Information</h1>
+                            <div className="text-center">
+                                <img
+                                    src={pfp}
+                                    className="rounded-circle img-fluid mb-4"
+                                    alt={username}
+                                    style={{ maxHeight: "200px", maxWidth: "330px", objectFit: "cover" }}
+                                />
+                            </div>
+                            <h2 className="text-center mb-3">{username}</h2>
+                            <h4 className="text-center mb-3">{email}</h4>
+                            <p className="text-center mb-4">{bio}</p>
+                            <div className="text-center">
+                                <button className="btn btn-danger mx-2" onClick={() => setShowModal(true)}>Delete Account</button>
+                                <button className="btn btn-primary mx-2" onClick={handleUpdate}>Update Account</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <h2> {username} </h2>
-            <h2> {email} </h2>
-            <h2> {bio} </h2>
-            <button onClick={() => setShowModal(true)}>Delete Account</button>
-            <button onClick={handleUpdate}>Update Account</button>
 
             <div className={`modal ${showModal ? "d-block" : "d-none"}`} tabIndex="-1" role="dialog" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}>
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Confirm Deletion</h5>
+                            <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
                         </div>
                         <div className="modal-body">
                             <p>Are you sure you want to delete your account?</p>
-                            <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input type="password" className="form-control mb-3" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} />
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-danger" onClick={handleDelete}>Yes</button>
@@ -114,6 +126,7 @@ function Account() {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

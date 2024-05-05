@@ -64,7 +64,7 @@ function CreateRecipe() {
           <div className="row mt-5">
               <div className="col">
                   <h2 className="text-center mb-3">Create Recipe</h2>
-                  <form>
+                  <form onSubmit={handleCreateRecipe}>
                       <div className="form-group mb-2"> 
                           <label htmlFor="title">Title:</label>
                           <input
@@ -124,7 +124,7 @@ function CreateRecipe() {
                           />
                       </div>
                       <div className="text-center mt-3">
-                          <button type="submit" className="btn btn-success btn-block" onClick={handleCreateRecipe}>Create</button>
+                          <button type="submit" className="btn btn-success btn-block">Create</button>
                       </div>
                   </form>
               </div>
