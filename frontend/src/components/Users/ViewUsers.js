@@ -2,6 +2,7 @@ import Navbar from "../Navbar";
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function ViewUsers() {
     const [users, setUsers] = useState([]);
@@ -9,6 +10,7 @@ function ViewUsers() {
     const [searchInput, setSearchInput] = useState("");
     const [followedUsers, setFollowedUsers] = useState([]);
     const token = Cookies.get('token');
+    const navigate = useNavigate();
 
     const fetchUsers = async () => {
         try {
@@ -158,6 +160,9 @@ function ViewUsers() {
                                         </button>
                                     </div>
                                 ) : null}
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <button className="btn btn-success mt-2" style={{ width: '100px' }} onClick={() => navigate(`/accountview/${user._id}`)}>View</button>
+                                </div>
                                 <div className="card-body text-center">
                                 </div>
                             </div>
