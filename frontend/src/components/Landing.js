@@ -13,7 +13,8 @@ function Landing() {
             <h1>The Easiest Way To Make Your Favorite Meal</h1>
             <p>Discover 1000+ recipes in your hand with the bet recipe. 
               Help you to find the easiest way to cook.</p>
-            <button className="btn btn-success" onClick={() => navigate("/login")}>Explore Recipes</button>
+            <button className="btn btn-success me-1" onClick={() => navigate("/register")}>Sign Up</button>
+            <button className="btn btn-dark" onClick={() => navigate("/login")}>Log In</button>
           </div>
         </div>
         <div className="col-12 col-md-6">
