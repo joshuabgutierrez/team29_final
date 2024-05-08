@@ -124,6 +124,7 @@ function Recipes() {
                                     alt={recipe.title}
                                     style={{ height: "200px", objectFit: "contain" }}
                                 />
+                                <h4 className="card-text text-center">Likes: {recipe.likesCount}</h4>
                                 <div className="card-body text-center">
                                     <h5 className="card-title">{recipe.title}</h5>
                                     <p className="card-text">Recipe by: {recipe.creatorInfo.username}</p>
